@@ -1,0 +1,32 @@
+<div  style="text-align:center;color:olivedrab">
+    <div class="col-md-12 title1" style="font-size: 2em">COUNTRIES
+        <button class="btn btn-secondary" (click)="goBackToPreviousPage()" >Back </button>
+    </div>   
+  </div>
+  <div  style=text-align:center *ngIf="currencyfilter==1">
+      <div class="col-md-12 title1" style="font-size: 22px">Countries filterd based on Currency</div>
+    </div>
+    <div  style=text-align:center *ngIf="languagefilter==1">
+        <div class="col-md-12 title1" style="font-size: 22px">Countries filterd based on Language</div>
+      </div>
+<div class="container">
+    <div class="row" *ngIf="flag==1">
+        <div *ngFor ="let country of countries" class="col-12 col-md-6 col-lg-4 " >
+            <div class="card">                        
+                <img class="card-img"  src= {{country.flag}}><br>
+                <h5 class="card-title" >{{country.name|uppercase}} </h5>  
+                <div class="card-body" >
+                    <p >Capital:{{country.capital}}</p>                        
+                    <p >Timezone: {{country.timezones[0]}}</p>    
+                    <p >Subregion: {{country.subregion}}</p>  
+                    <p >Population: {{country.population}}</p> 
+                    Currency:
+                   <a [routerLink] =  "['/countries/currency',currency.code]" *ngFor='let currency of country.currencies;'> {{currency.name}}</a><br>
+                   Language:
+                   <a [routerLink] =  "['/countries/language',language.iso639_1]" *ngFor='let language of country.languages;'>{{language.name}}</a>
+                   <br><a [routerLink]="['/country',country.name]">Know about {{country.name}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
