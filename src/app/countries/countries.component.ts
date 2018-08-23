@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { GlobeService } from '../globe.service';
 import { CommonModule, getCurrencySymbol } from '@angular/common';
-
+import { Goback } from './countriesInterface';
 import{Location} from '@angular/common';
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.css']
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements OnInit,Goback {
 public countries;
 public flag=0;
 public currencyfilter=0;
@@ -25,7 +25,11 @@ public languagefilter=0;
   let currencycode = this._route.snapshot.paramMap.get('currencycode');
 
   let languagecode = this._route.snapshot.paramMap.get('languagecode');
+
+
+//Differentiating different types of call to countries component for example call for countries,currency filtered countries,language filtered countries
 if(currencycode==null && languagecode==null && region!=null){
+
   this.countries = this.globeservice.getAllCountries(region)
   
   .subscribe(
@@ -94,6 +98,8 @@ if(currencycode==null && languagecode==null && region!=null){
 
 
   }
+
+//function for goback button
   goBackToPreviousPage():any
   {
     this.location.back();
